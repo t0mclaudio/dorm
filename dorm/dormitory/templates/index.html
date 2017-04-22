@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Dormitory App</title>
+    </head>
+    <body>
+        <h1>Welcome to Dormitory App</h1>
+        <ul>
+            <li><a href="{% url 'add_student' %}">Create Student Account</a></li>
+            <li><a href="{% url 'add_manager' %}">Create Dorm Manager Account</a></li>
+            <li><a href="{% url 'students' %}">View all students</a></li>
+            <li><a href="{% url 'student_logs' request.user.username   %}">View student log</a></li>            
+            <li><a href="{% url 'student_in' request.user.username  %}">Log in</a></li>
+            <li><a href="{% url 'student_out' request.user.username %}">Log out</a></li>
+            <li><a href="{% url 'logout'%}">LOG OUT</a></li>
+        </ul>
+    </body>
+</html>

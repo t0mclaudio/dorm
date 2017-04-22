@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <title>Dormitory App</title>
+    </head>
+    <body>
+        <h1>Parent Form</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save" />
+        </form>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <title>Dormitory App</title>
+    </head>
+    <body>
+        <h1>Profile</h1>
+        <table border=1 style="border-collapse: collapse">
+            <tr>
+                <td>Name</td>
+                <td>{{profile.user.first_name}} {{profile.last_name}}</td>
+            </tr>
+            <tr>
+                <td>Username</td>
+                <td>{{profile.user.username}}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>{{profile.user.email}}</td>
+            </tr>
+            <tr>
+                <td>Course</td>
+                <td>{{profile.course}}</td>
+            </tr>
+            <tr>
+                <td>Contact No</td>
+                <td>{{profile.contact_no}}</td>
+            </tr>
+            <tr>
+                <td>Date of birth</td>
+                <td>{{profile.birth_date}}</td>
+            </tr>
+            <tr>
+                <td>Mother's name</td>
+                <td>{{profile.mother_name}}</td>
+            </tr>
+            <tr>
+                <td>Mother's contact info</td>
+                <td>{{profile.mother_contact}}</td>
+            </tr>
+            <tr>
+                <td>Father's name</td>
+                <td>{{profile.father_name}}</td>
+            </tr>
+            <tr>
+                <td>Father's contact info</td>
+                <td>{{profile.father_contact}}</td>
+            </tr>
+            <tr>
+                <td>Guardian's name</td>
+                <td>{{profile.guardian_name}}</td>
+            </tr>
+            <tr>
+                <td>Guardian's contact info</td>
+                <td>{{profile.guardian_contact}}</td>
+            </tr>
+            <tr>
+                <td>Assigned Bunk Bed</td>
+                <td>{{profile.bunk.code}}</td>
+            </tr>
+        </table>
+    </body>
+</html>

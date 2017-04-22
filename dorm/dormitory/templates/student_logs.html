@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Dormitory App</title>
+    </head>
+    <body>
+        <h1>{{request.user.username}} logs</h1>
+        <table border=1 style="border-collapse: collapse">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Type</th>
+                <th>Destination</th>
+                <th></th>
+            </tr>
+            {% for log in logs %}
+                <tr>
+                    <td>{{log.datetime|date:"DATE_FORMAT"}}</td>
+                    <td>{{log.datetime|time:"P"}}</td>
+                    <td>{{log.log_type}}</td>
+                    <td>{{log.destination}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

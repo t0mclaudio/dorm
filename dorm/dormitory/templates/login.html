@@ -1,0 +1,39 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Styles -->
+</head>
+
+<body>
+
+    <div class="container" style="max-width:400px; border: 1px solid silver; padding: 20px; margin-top: 50px">
+        {% if form.errors %}
+        <p class="lead" style="color:red">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+
+        {% if next %}
+            {% if user.is_authenticated %}
+            <p class="lead" style="color:red">Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+            {% else %}
+            <p class="h3">Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
+        <form method="post" action="{% url 'django.contrib.auth.views.login' %}" role="form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">Username:</label>
+                <input type="username" class="form-control" id="id_username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="id_password">Password:</label>
+                <input type="password" class="form-control" id="id_password" name="password">
+            </div>
+            <input type="submit" value="login" class="btn btn-success btn-block btn-lg"/>
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+    </div>
+</body>

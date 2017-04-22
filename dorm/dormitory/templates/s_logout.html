@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>Dormitory App</title>
+    </head>
+    <body>
+        <h1>Student Logout</h1>
+        <h2>Date and Time now: <span id="datetime"></span></h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="destination">Your destination</label>
+            <input type="text" name="destination" />
+            <input type="submit" value="Log out" />
+        </form>
+        <script>
+            var d = new Date("October 13, 2014 11:13:00");
+            document.getElementById("datetime").innerHTML = d;
+        </script>
+    </body>
+</html>
