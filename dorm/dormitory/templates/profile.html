@@ -57,6 +57,10 @@
                 <td>Assigned Bunk Bed</td>
                 <td>{{profile.bunk.code}}</td>
             </tr>
+            <tr>
+                <td colspan=2><a href="{% url 'student_logs' profile.user.username %}">View logs</a></td>
+            </tr>
         </table>
+
     </body>
 </html>

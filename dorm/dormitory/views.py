@@ -9,7 +9,9 @@ import datetime
 # Create your views here.
 @login_required
 def index(request):
-    return render(request, 'index.html')
+    is_manager = request.user.groups.filter(name="manager").exists()
+    is_student = request.user.groups.filter(name="student").exists()
+    return render(request, 'index.html', {'is_manager':is_manager, 'is_student': is_student})
 
 
 @login_required
@@ -65,6 +67,8 @@ def add_manager(request):
                 email = clean['email'],
                 password = clean['password'],
             )
+            user.save()
+            user.set_password(user.password)
             user.save()
             g = Group.objects.get(name='manager')
             g.user_set.add(user)
