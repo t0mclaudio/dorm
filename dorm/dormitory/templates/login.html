@@ -22,7 +22,7 @@
             <p class="h3">Please login to see this page.</p>
             {% endif %}
         {% endif %}
-        <form method="post" action="{% url 'django.contrib.auth.views.login' %}" role="form">
+        <form method="post" action="{% url 'login' %}" role="form">
             {% csrf_token %}
             <div class="form-group">
                 <label for="id_username">Username:</label>
