@@ -74,10 +74,10 @@ def add_manager(request):
             g.user_set.add(user)
             return render(request, 'index.html')
         else:
-            return render(request, 'Dmanager_form.html', {'form': form} )
+            return render(request, 'DManager_form.html', {'form': form} )
     else:
         form = DManagerForm()
-    return render(request, 'Dmanager_form.html', {'form': form} )
+    return render(request, 'DManager_form.html', {'form': form} )
 
 @login_required
 def students(request):
