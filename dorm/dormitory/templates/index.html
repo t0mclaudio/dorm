@@ -5,14 +5,25 @@
     <body>
         <h1>Welcome to Dormitory app, {{request.user.username | title }}</h1>
         <h2>
-            You have a {% if is_manager %}manager{% endif%}{% if is_student %}student{% endif %} account
+            You have
+            {% if is_manager %}a <u>manager</u>{% endif%}
+            {% if is_student %}a <u>student</u>{% endif %}
+            {% if is_admin %}an <u>admin</u>{% endif %} account
         </h2>
         <ul>
-            <!-- {% if is_manager %} -->
-            <li><a href="{% url 'add_student' %}">Create Student Account</a></li>
+            {% if request.user.is_superuser %}
+            <li><a href="{% url 'add_admin' %}">Create Admin Account</a></li>
+            {% endif %}
+            {% if is_admin %}
+            <li><a href="{% url 'add_admin' %}">Create Admin Account</a></li>
             <li><a href="{% url 'add_manager' %}">Create Dorm Manager Account</a></li>
+            <li><a href="{% url 'view_bunks' %}">View bunks</a></li>
+            {% endif %}
+            {% if is_manager %}
+            <li><a href="{% url 'add_student' %}">Create Student Account</a></li>
             <li><a href="{% url 'students' %}">View all students</a></li>
-            <!-- {% endif %} -->
+            <li><a href="{% url 'logs' %}">View all logs</a></li>
+            {% endif %}
             {% if is_student %}
             <li><a href="{% url 'profile' request.user.username %}">View profile</a></li>
             <li><a href="{% url 'student_in' request.user.username  %}">Log in</a></li>

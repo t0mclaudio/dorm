@@ -20,9 +20,12 @@ class StudentForm(forms.Form):
     guardian_contact = forms.RegexField(label = "Guardian contact Number", help_text = "Accepted Formats: '+999999999'. Up to 15 digits allowed.", regex = r'^\+?1?\d{9,15}$' )
     bunk = forms.ModelChoiceField(queryset=Bunk.objects.all())
 
-class DManagerForm(forms.Form):
+class UserForm(forms.Form):
     username = forms.CharField(max_length=32, required=True)
     first_name = forms.CharField(max_length=32, required=True)
     last_name = forms.CharField(max_length=32, required=True)
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+class BunkForm(forms.Form):
+    code = forms.CharField(max_length=12, required=True)

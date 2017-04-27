@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Dormitory App</title>
+    </head>
+    <body>
+        <h1>Bunks</h1>
+        <table border=1 style="border-collapse: collapse">
+            <tr>
+                <th>Code</th>
+            </tr>
+            {% for bunk in bunks %}
+                <tr>
+                    <td>{{bunk.code}}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td>
+                    <a href="{% url 'add_bunk' %}">Add bunk bed</a>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

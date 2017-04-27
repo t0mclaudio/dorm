@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Bunk(models.Model):
-    code = models.CharField(max_length=12)
+    code = models.CharField(max_length=12, unique=True)
 
     def __str__(self):
         return self.code

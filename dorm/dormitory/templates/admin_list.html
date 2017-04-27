@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Dormitory App</title>
+    </head>
+    <body>
+        <h1>Administrators</h1>
+        <table border=1 style="border-collapse: collapse">
+            <tr>
+                <th>Name</th>
+                <th>Email Address</th>
+                <th></th>
+            </tr>
+            {% for admin in admins %}
+                <tr>
+                    <td>{{admin.user.first_name}} {{admin.user.last_name}}</td>
+                    <td>{{admin.user.email}}</td>
+                    <td><a href="{% url 'admin_profile' admin.user.username %}">View profile</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'add_admin' %}">Add Administrator</a>
+    </body>
+</html>
