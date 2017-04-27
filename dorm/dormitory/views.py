@@ -119,7 +119,23 @@ def add_manager(request):
         form = UserForm()
     return render(request, 'user_form.html', {'form': form} )
 
+@login_required
+def manager_profile(request):
+    pass
 
+@login_required
+def edit_manager_profile(request):
+    pass
+
+@login_required
+def delete_manager(request):
+    pass
+
+# Student
+@login_required
+def list_students(request):
+    students = Student.objects.all()
+    return render(request, 'students.html', {'students': students})
 
 @login_required
 def add_student(request):
@@ -162,50 +178,49 @@ def add_student(request):
     return render(request, 'student_form.html', {'form': form} )
 
 @login_required
-def add_manager(request):
-    if request.method == "POST":
-        form = UserForm(request.POST)
-        if form.is_valid():
-            clean = form.clean()
-            user = User(
-                username = clean['username'],
-                first_name = clean['first_name'],
-                last_name = clean['last_name'],
-                email = clean['email'],
-                password = clean['password'],
-            )
-            user.save()
-            user.set_password(user.password)
-            user.save()
-            g = Group.objects.get(name='manager')
-            g.user_set.add(user)
-            return render(request, 'index.html')
-        else:
-            return render(request, 'user_form.html', {'form': form} )
-    else:
-        form = UserForm()
-    return render(request, 'user_form.html', {'form': form} )
-
-@login_required
-def students(request):
-    students = Student.objects.all()
-    return render(request, 'students.html', {'students': students})
-
-@login_required
-def profile(request, username):
+def student_profile(request):
     user = User.objects.get(username=username)
     profile = Student.objects.get(user=user)
     return render(request, 'profile.html', {'profile': profile})
 
 @login_required
-def student_logs(request, username):
+def edit_student_profile(request):
+    pass
+
+@login_required
+def delete_student(request):
+    pass
+
+@login_required
+def student_logs(request):
     user = User.objects.get(username=username)
     student = Student.objects.get(user=user)
     logs = Log.objects.filter(student=student)
     return render(request, 'student_logs.html', {'logs': logs})
 
 @login_required
-def student_in(request, username):
+def logs(request):
+    logs = Log.objects.all()
+    return render(request, 'logs.html', {'logs':logs})
+
+
+@login_required
+def my_logs(request, username):
+    user = User.objects.get(username=username)
+    student = Student.objects.get(user=user)
+    logs = Log.objects.filter(student=student)
+    return render(request, 'student_logs.html', {'logs': logs})
+
+@login_required
+def my_profile(request):
+    pass
+
+@login_required
+def my_logs(request):
+    pass
+
+@login_required
+def my_in(request, username):
     if request.method == "POST":
         user = User.objects.get(username=username)
         student = Student.objects.get(user=user)
@@ -220,7 +235,7 @@ def student_in(request, username):
     return render(request, 's_login.html')
 
 @login_required
-def student_out(request, username):
+def my_out(request, username):
     if request.method == "POST":
         user = User.objects.get(username=username)
         student = Student.objects.get(user=user)
@@ -233,8 +248,3 @@ def student_out(request, username):
         log.save()
         return render(request, 'index.html')
     return render(request, 's_logout.html')
-
-@login_required
-def logs(request):
-    logs = Log.objects.all()
-    return render(request, 'logs.html', {'logs':logs})

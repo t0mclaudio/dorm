@@ -22,14 +22,14 @@ urlpatterns = [
     url(r'^bunk/(?P<code>[a-zA-Z-_0-9 ]+)/delete/$', view=views.delete_bunk, name="delete_bunk"),
 
     # Admin Manager
-    url(r'^managers/$', view=views.list_manager, name="list_managers"),
+    url(r'^managers/$', view=views.list_managers, name="list_managers"),
     url(r'^manager/add/$', view=views.add_manager, name="add_manager"),
     url(r'^manager/(?P<username>[a-zA-Z-_0-9]+)/$', view=views.manager_profile, name="manager_profile"),
     url(r'^manager/(?P<username>[a-zA-Z-_0-9]+)/edit/$', view=views.edit_manager_profile, name="edit_manager_profile"),
     url(r'^manager/(?P<username>[a-zA-Z-_0-9]+)/delete/$', view=views.delete_manager, name="delete_manager"),
 
     # Manager Student
-    url(r'^students/$', view=views.list_student, name="list_students"),
+    url(r'^students/$', view=views.list_students, name="list_students"),
     url(r'^student/add/$', view=views.add_student, name="add_student"),
     url(r'^student/(?P<username>[a-zA-Z-_0-9]+)/$', view=views.student_profile, name="student_profile"),
     url(r'^student/(?P<username>[a-zA-Z-_0-9]+)/edit/$', view=views.edit_student_profile, name="edit_student_profile"),
@@ -40,8 +40,8 @@ urlpatterns = [
     url(r'^logs/$', view=views.logs, name="logs"),
 
     # Student URL's
-    url(r'^(?P<username>[a-zA-Z-_0-9]+)/profile/', view=views.profile, name="profile"),
-    url(r'^(?P<username>[a-zA-Z-_0-9]+)/logs/', view=views.student_logs, name="student_logs"),
-    url(r'^(?P<username>[a-zA-Z-_0-9]+)/log-in/', view=views.student_in, name="student_in"),
-    url(r'^(?P<username>[a-zA-Z-_0-9]+)/log-out/', view=views.student_out, name='student_out'),
+    url(r'^(?P<username>[a-zA-Z-_0-9]+)/profile/', view=views.my_profile, name="my_profile"),
+    url(r'^(?P<username>[a-zA-Z-_0-9]+)/logs/', view=views.my_logs, name="my_logs"),
+    url(r'^(?P<username>[a-zA-Z-_0-9]+)/log-in/', view=views.my_in, name="my_in"),
+    url(r'^(?P<username>[a-zA-Z-_0-9]+)/log-out/', view=views.my_out, name='my_out'),
 ]

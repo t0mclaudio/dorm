@@ -12,24 +12,23 @@
         </h2>
         <ul>
             {% if request.user.is_superuser %}
-            <li><a href="{% url 'add_admin' %}">Create Admin Account</a></li>
+            <li><a href="{% url 'list_admins' %}">View Administrators</a></li>
             {% endif %}
             {% if is_admin %}
-            <li><a href="{% url 'add_admin' %}">Create Admin Account</a></li>
-            <li><a href="{% url 'add_manager' %}">Create Dorm Manager Account</a></li>
-            <li><a href="{% url 'view_bunks' %}">View bunks</a></li>
+            <li><a href="{% url 'list_managers' %}">View Dorm Managers</a></li>
+            <li><a href="{% url 'list_bunks' %}">View Bunks</a></li>
             {% endif %}
             {% if is_manager %}
-            <li><a href="{% url 'add_student' %}">Create Student Account</a></li>
-            <li><a href="{% url 'students' %}">View all students</a></li>
-            <li><a href="{% url 'logs' %}">View all logs</a></li>
+            <li><a href="{% url 'list_students' %}">View Students</a></li>
+            <li><a href="{% url 'logs' %}">View Logs</a></li>
             {% endif %}
             {% if is_student %}
-            <li><a href="{% url 'profile' request.user.username %}">View profile</a></li>
-            <li><a href="{% url 'student_in' request.user.username  %}">Log in</a></li>
-            <li><a href="{% url 'student_out' request.user.username %}">Log out</a></li>
+            <li><a href="{% url 'my_profile' request.user.username %}">View my profile</a></li>
+            <li><a href="{% url 'my_logs' request.user.username %}">View my logs</a></li>
+            <li><a href="{% url 'my_in' request.user.username  %}">Log in</a></li>
+            <li><a href="{% url 'my_out' request.user.username %}">Log out</a></li>
             {% endif %}
-            <li><a href="{% url 'logout'%}">LOG OUT ACCOUNT</a></li>
+            <li><a href="{% url 'logout'%}">Exit</a></li>
         </ul>
     </body>
 </html>
