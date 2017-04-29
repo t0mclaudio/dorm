@@ -25,7 +25,7 @@ class UserForm(forms.Form):
     first_name = forms.CharField(max_length=32, required=True)
     last_name = forms.CharField(max_length=32, required=True)
     email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput, required=True)
 
 class BunkForm(forms.Form):
     code = forms.CharField(max_length=12, required=True)

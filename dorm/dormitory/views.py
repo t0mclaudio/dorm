@@ -39,27 +39,54 @@ def add_admin(request):
             user.save()
             g = Group.objects.get(name='admin')
             g.user_set.add(user)
-            return render(request, 'index.html')
+            return HttpResponseRedirect(reverse('list_admins'))
         else:
             return render(request, 'user_form.html', {'form': form} )
     else:
         form = UserForm()
     return render(request, 'user_form.html', {'form': form} )
 
-def admin_profile(request):
-    pass
+def admin_profile(request, username):
+    profile = User.objects.get(username=username)
+    return render(request, 'admin_profile.html', {'profile': profile} )
 
-def edit_admin_profile(request):
-    pass
+def edit_admin_profile(request, username):
+    user = User.objects.get(username=username)
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            clean = form.clean()
+            user.username = clean['username']
+            user.first_name = clean['first_name']
+            user.last_name = clean['last_name']
+            user.email = clean['email']
+            user.set_password(clean['password'])
+            user.save()
+            return HttpResponseRedirect(reverse('list_admins'))
+        else:
+            return render(request, 'user_form.html', {'form': form})
+    else:
+        form = UserForm(initial={
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+        'password': user.password
+        })
+        form.fields['username'].widget.attrs['readonly'] = True
+    return render(request, 'user_form.html', {'form': form})
 
-def delete_admin(request):
-    pass
+
+def delete_admin(request, username):
+    user = User.objects.get(username=username)
+    user.delete()
+    return HttpResponseRedirect(reverse('list_admins'))
 
 # Bunks
 @login_required
 def list_bunks(request):
     bunks = Bunk.objects.all()
-    return render(request, 'bunks.html', {'bunks': bunks})
+    return render(request, 'bunk_list.html', {'bunks': bunks})
 
 @login_required
 def add_bunk(request):
@@ -69,7 +96,7 @@ def add_bunk(request):
             clean = form.clean()
             bunk = Bunk(code=clean['code'])
             bunk.save()
-            return HttpResponseRedirect(reverse('view_bunks'))
+            return HttpResponseRedirect(reverse('list_bunks'))
         else:
             return render(request, 'bunkform.html', {'form': form})
     else:
@@ -77,16 +104,31 @@ def add_bunk(request):
         return render(request, 'bunkform.html', {'form': form})
 
 @login_required
-def bunk(request):
-    pass
+def bunk(request, id):
+    bunk = Bunk.objects.get(id=id)
+    return render(request, 'bunk.html', {'bunk': bunk} )
 
 @login_required
-def edit_bunk(request):
-    pass
+def edit_bunk(request, id):
+    bunk = Bunk.objects.get(id=id)
+    if request.method == "POST":
+        form = BunkForm(request.POST)
+        if form.is_valid():
+            clean = form.clean()
+            bunk.code = clean['code']
+            bunk.save()
+            return HttpResponseRedirect(reverse('list_bunks'))
+        else:
+            return render(request, 'bunkform.html', {'form': form})
+    else:
+        form = BunkForm(initial={'code': bunk.code})
+    return render(request, 'bunkform.html', {'form': form})
 
 @login_required
-def delete_bunk(request):
-    pass
+def delete_bunk(request, id):
+    bunk = Bunk.objects.get(id=id)
+    bunk.delete()
+    return HttpResponseRedirect(reverse('list_bunks'))
 
 # Manager
 @login_required
@@ -112,7 +154,7 @@ def add_manager(request):
             user.save()
             g = Group.objects.get(name='manager')
             g.user_set.add(user)
-            return render(request, 'index.html')
+            return HttpResponseRedirect(reverse('list_managers'))
         else:
             return render(request, 'user_form.html', {'form': form} )
     else:
@@ -120,22 +162,47 @@ def add_manager(request):
     return render(request, 'user_form.html', {'form': form} )
 
 @login_required
-def manager_profile(request):
-    pass
+def manager_profile(request, username):
+    profile = User.objects.get(username=username)
+    return render(request, 'manager_profile.html', {'profile': profile} )
 
 @login_required
-def edit_manager_profile(request):
-    pass
+def edit_manager_profile(request, username):
+    user = User.objects.get(username=username)
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            clean = form.clean()
+            user.username = clean['username']
+            user.first_name = clean['first_name']
+            user.last_name = clean['last_name']
+            user.email = clean['email']
+            user.set_password(clean['password'])
+            user.save()
+            return HttpResponseRedirect(reverse('list_managers'))
+        else:
+            return render(request, 'user_form.html', {'form': form})
+    else:
+        form = UserForm(initial={
+        'username': user.username,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+        'password': user.password
+        })
+        form.fields['username'].widget.attrs['readonly'] = True
+    return render(request, 'user_form.html', {'form': form})
 
 @login_required
-def delete_manager(request):
-    pass
+def delete_manager(request, username):
+    user = User.objects.get(username=username)
+    user.delete()
+    return HttpResponseRedirect(reverse('list_managers'))
 
-# Student
 @login_required
 def list_students(request):
     students = Student.objects.all()
-    return render(request, 'students.html', {'students': students})
+    return render(request, 'student_list.html', {'students': students})
 
 @login_required
 def add_student(request):
@@ -178,21 +245,71 @@ def add_student(request):
     return render(request, 'student_form.html', {'form': form} )
 
 @login_required
-def student_profile(request):
+def student_profile(request, username):
     user = User.objects.get(username=username)
     profile = Student.objects.get(user=user)
-    return render(request, 'profile.html', {'profile': profile})
+    return render(request, 'student_profile.html', {'profile': profile})
 
 @login_required
-def edit_student_profile(request):
-    pass
+def edit_student_profile(request, username):
+    user = User.objects.get(username=username)
+    profile = Student.objects.get(user=user)
+    if request.method == "POST":
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            clean = form.clean()
+            bunk = Bunk.objects.get(code=clean['bunk'])
+            user.username = clean['username'],
+            user.first_name = clean['first_name'],
+            user.last_name = clean['last_name'],
+            user.email = clean['email'],
+            user.set_password(clean['password'])
+            user.save()
+            profile.course=clean['course'],
+            profile.contact_no=clean['contact_no'],
+            profile.birth_date=clean['birth_date'],
+            profile.mother_name=clean['mother_name'],
+            profile.mother_contact=clean['mother_contact'],
+            profile.father_name=clean['father_name'],
+            profile.father_contact=clean['father_contact'],
+            profile.guardian_name=clean['guardian_name'],
+            profile.guardian_contact=clean['guardian_contact'],
+            profile.bunk = bunk,
+            profile.save()
+            return HttpResponseRedirect(reverse('list_students'))
+        else:
+            return render(request, 'student_form.html', {'form': form} )
+    else:
+        form = StudentForm(initial = {
+            'username': user.username,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+            'password': user.password,
+            'course': profile.course,
+            'contact_no': profile.contact_no,
+            'birth_date': profile.birth_date,
+            'mother_name': profile.mother_name,
+            'mother_contact': profile.mother_contact,
+            'father_name': profile.father_name,
+            'father_contact': profile.father_contact,
+            'guardian_name': profile.guardian_name,
+            'guardian_contact': profile.guardian_contact,
+            'bunk': profile.bunk
+        })
+        form.fields['username'].widget.attrs['readonly'] = True
+    return render(request, 'student_form.html', {'form': form} )
 
 @login_required
-def delete_student(request):
-    pass
+def delete_student(request, username):
+    user = User.objects.get(username=username)
+    profile = Student.objects.get(user=user)
+    profile.delete()
+    user.delete()
+    return HttpResponseRedirect(reverse('list_students'))
 
 @login_required
-def student_logs(request):
+def student_logs(request, username):
     user = User.objects.get(username=username)
     student = Student.objects.get(user=user)
     logs = Log.objects.filter(student=student)
@@ -203,7 +320,6 @@ def logs(request):
     logs = Log.objects.all()
     return render(request, 'logs.html', {'logs':logs})
 
-
 @login_required
 def my_logs(request, username):
     user = User.objects.get(username=username)
@@ -212,12 +328,10 @@ def my_logs(request, username):
     return render(request, 'student_logs.html', {'logs': logs})
 
 @login_required
-def my_profile(request):
-    pass
-
-@login_required
-def my_logs(request):
-    pass
+def my_profile(request, username):
+    user = User.objects.get(username=username)
+    student = Student.objects.get(user=user)
+    return render(request, 'my_profile.html', {'student': student})
 
 @login_required
 def my_in(request, username):
@@ -232,7 +346,7 @@ def my_in(request, username):
         )
         log.save()
         return render(request, 'index.html')
-    return render(request, 's_login.html')
+    return render(request, 'my_in.html')
 
 @login_required
 def my_out(request, username):
@@ -247,4 +361,4 @@ def my_out(request, username):
         )
         log.save()
         return render(request, 'index.html')
-    return render(request, 's_logout.html')
+    return render(request, 'my_out.html')

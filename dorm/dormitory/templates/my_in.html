@@ -6,13 +6,17 @@
     </head>
     <body>
         <div class="container">
-            <h1>Student Form</h1>
-            <form action="" method="post">
+            <h1>Student Login</h1>
+            <h2>Date and Time now: <span id="datetime"></span></h2>
+            <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Save" />
+                <input type="submit" value="Log In">
             </form>
-            <a class="btn btn-info" role="button" href="{% url 'list_students' %}">Cancel</a>
+            <a class="btn btn-info" role="button" href="{{request.META.HTTP_REFERER}}">Back</a>
         </div>
+        <script>
+            var d = new Date("October 13, 2014 11:13:00");
+            document.getElementById("datetime").innerHTML = d;
+        </script>
     </body>
 </html>

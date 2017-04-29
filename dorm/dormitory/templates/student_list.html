@@ -6,22 +6,24 @@
     </head>
     <body>
         <div class="container">
-            <h1>Administrators</h1>
+            <h1>List of students</h1>
             <table class="table table-bordered">
                 <tr>
                     <th>Name</th>
                     <th>Email Address</th>
+                    <th>Bunk assigment</th>
                     <th></th>
                 </tr>
-                {% for admin in admins %}
+                {% for student in students %}
                     <tr>
-                        <td>{{admin.first_name}} {{admin.last_name}}</td>
-                        <td>{{admin.email}}</td>
-                        <td><a href="{% url 'admin_profile' admin.username %}">View profile</a></td>
+                        <td>{{student.user.first_name}} {{student.user.last_name}}</td>
+                        <td>{{student.user.email}}</td>
+                        <td>{{student.bunk.code}}</td>
+                        <td><a href="{% url 'student_profile' student.user.username %}">View profile</a></td>
                     </tr>
                 {% endfor %}
             </table>
-            <a class="btn btn-info" role="button" href="{% url 'add_admin' %}">Add Administrator</a>
+            <a class="btn btn-info" role="button" href="{% url 'add_student' %}">Add student</a>
             <a class="btn btn-info" role="button" href="{% url 'index' %}">Back to main page</a>
         </div>
     </body>

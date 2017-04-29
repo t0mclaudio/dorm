@@ -6,25 +6,23 @@
     </head>
     <body>
         <div class="container">
-            <h1>{{log.student.user.username}} logs</h1>
+            <h1>Managers</h1>
             <table class="table table-bordered">
                 <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Type</th>
-                    <th>Destination</th>
+                    <th>Name</th>
+                    <th>Email Address</th>
                     <th></th>
                 </tr>
-                {% for log in logs %}
+                {% for manager in managers %}
                     <tr>
-                        <td>{{log.datetime|date:"DATE_FORMAT"}}</td>
-                        <td>{{log.datetime|time:"P"}}</td>
-                        <td>{{log.log_type}}</td>
-                        <td>{{log.destination}}</td>
+                        <td>{{manager.first_name}} {{manager.last_name}}</td>
+                        <td>{{manager.email}}</td>
+                        <td><a href="{% url 'manager_profile' manager.username %}">View profile</a></td>
                     </tr>
                 {% endfor %}
             </table>
-            <a class="btn btn-info" role="button" href="{{request.META.HTTP_REFERER}}">Back</a>
+            <a class="btn btn-info" role="button" href="{% url 'add_manager' %}">Add Manager</a>
+            <a class="btn btn-info" role="button" href="{% url 'index' %}">Back to main page</a>
         </div>
     </body>
 </html>

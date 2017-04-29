@@ -17,9 +17,9 @@ urlpatterns = [
     # Admin Bunks
     url(r'^bunks/$', view=views.list_bunks, name="list_bunks"),
     url(r'^bunk/add/$', view=views.add_bunk, name="add_bunk"),
-    url(r'^bunk/(?P<code>[a-zA-Z-_0-9 ]+)/$', view=views.bunk, name="bunk"),
-    url(r'^bunk/(?P<code>[a-zA-Z-_0-9 ]+)/edit/$', view=views.edit_bunk, name="edit_bunk"),
-    url(r'^bunk/(?P<code>[a-zA-Z-_0-9 ]+)/delete/$', view=views.delete_bunk, name="delete_bunk"),
+    url(r'^bunk/(?P<id>[a-zA-Z-_0-9]+)/$', view=views.bunk, name="bunk"),
+    url(r'^bunk/(?P<id>[a-zA-Z-_0-9]+)/edit/$', view=views.edit_bunk, name="edit_bunk"),
+    url(r'^bunk/(?P<id>[a-zA-Z-_0-9]+)/delete/$', view=views.delete_bunk, name="delete_bunk"),
 
     # Admin Manager
     url(r'^managers/$', view=views.list_managers, name="list_managers"),

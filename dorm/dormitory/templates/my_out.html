@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>Dormitory App</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Student Logout</h1>
+            <h2>Date and Time now: <span id="datetime"></span></h2>
+            <form method="post">
+                {% csrf_token %}
+                <label for="destination">Your destination</label>
+                <input type="text" name="destination" />
+                <input type="submit" value="Log out" />
+            </form>
+            <a class="btn btn-info" role="button" href="{{request.META.HTTP_REFERER}}">Back</a>
+        </div>
+        <script>
+            var d = new Date("October 13, 2014 11:13:00");
+            document.getElementById("datetime").innerHTML = d;
+        </script>
+    </body>
+</html>

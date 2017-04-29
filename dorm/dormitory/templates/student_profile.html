@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>Dormitory App</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Student Profile</h1>
+            <table class="table table-bordered">
+                <tr>
+                    <td>Name</td>
+                    <td>{{profile.user.first_name}} {{profile.last_name}}</td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td>{{profile.user.username}}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{profile.user.email}}</td>
+                </tr>
+                <tr>
+                    <td>Course</td>
+                    <td>{{profile.course}}</td>
+                </tr>
+                <tr>
+                    <td>Contact No</td>
+                    <td>{{profile.contact_no}}</td>
+                </tr>
+                <tr>
+                    <td>Date of birth</td>
+                    <td>{{profile.birth_date}}</td>
+                </tr>
+                <tr>
+                    <td>Mother's name</td>
+                    <td>{{profile.mother_name}}</td>
+                </tr>
+                <tr>
+                    <td>Mother's contact info</td>
+                    <td>{{profile.mother_contact}}</td>
+                </tr>
+                <tr>
+                    <td>Father's name</td>
+                    <td>{{profile.father_name}}</td>
+                </tr>
+                <tr>
+                    <td>Father's contact info</td>
+                    <td>{{profile.father_contact}}</td>
+                </tr>
+                <tr>
+                    <td>Guardian's name</td>
+                    <td>{{profile.guardian_name}}</td>
+                </tr>
+                <tr>
+                    <td>Guardian's contact info</td>
+                    <td>{{profile.guardian_contact}}</td>
+                </tr>
+                <tr>
+                    <td>Assigned Bunk Bed</td>
+                    <td>{{profile.bunk.code}}</td>
+                </tr>
+            </table>
+            <a class="btn btn-info" role="button" href="{% url 'student_logs' profile.user.username %}">View logs</a>
+            <a class="btn btn-info" role="button" href="{% url 'edit_student_profile' profile.user.username %}">Edit profiles</a>
+            <a class="btn btn-info" role="button" href="{% url 'delete_student' profile.user.username %}">Delete</a>
+            <a class="btn btn-info" role="button" href="{% url 'list_students' %}">Back</a>
+        </div>
+    </body>
+</html>
