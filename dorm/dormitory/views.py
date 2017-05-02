@@ -7,6 +7,7 @@ from .forms import *
 import datetime
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 # Create your views here.
 @login_required
@@ -34,13 +35,19 @@ def add_admin(request):
                 email = clean['email'],
                 password = clean['password'],
             )
-            user.save()
-            user.set_password(user.password)
-            user.save()
-            g = Group.objects.get(name='admin')
-            g.user_set.add(user)
+            try:
+                user.save()
+                user.set_password(user.password)
+                user.save()
+                g = Group.objects.get(name='admin')
+                g.user_set.add(user)
+            except:
+                messages.warning(request, "An error occured while saving. Make sure username and email address are unique")
+                return HttpResponseRedirect(reverse('list_admins'))
+            messages.success(request, "A new admin has been created.")
             return HttpResponseRedirect(reverse('list_admins'))
         else:
+            messages.warning(request, "Error on form values.")
             return render(request, 'user_form.html', {'form': form} )
     else:
         form = UserForm()
@@ -61,9 +68,15 @@ def edit_admin_profile(request, username):
             user.last_name = clean['last_name']
             user.email = clean['email']
             user.set_password(clean['password'])
-            user.save()
+            try:
+                user.save()
+            except:
+                messages.warning(request, "An error occured while saving. Make sure email address are unique")
+                return HttpResponseRedirect(reverse('list_admins'))
+            messages.success(request, "Admin profile updated.")
             return HttpResponseRedirect(reverse('list_admins'))
         else:
+            messages.warning(request, "Error on form values.")
             return render(request, 'user_form.html', {'form': form})
     else:
         form = UserForm(initial={
@@ -80,6 +93,7 @@ def edit_admin_profile(request, username):
 def delete_admin(request, username):
     user = User.objects.get(username=username)
     user.delete()
+    messages.success(request, "Success: An admin has been removed")
     return HttpResponseRedirect(reverse('list_admins'))
 
 # Bunks
@@ -95,7 +109,12 @@ def add_bunk(request):
         if form.is_valid():
             clean = form.clean()
             bunk = Bunk(code=clean['code'])
-            bunk.save()
+            try:
+                bunk.save()
+            except:
+                messages.warning(request, "An error occured while saving. Make sure code is unique")
+                return HttpResponseRedirect(reverse('list_bunks'))
+            messages.success(request, "Success: A bunk bed has been added")
             return HttpResponseRedirect(reverse('list_bunks'))
         else:
             return render(request, 'bunkform.html', {'form': form})
@@ -116,9 +135,15 @@ def edit_bunk(request, id):
         if form.is_valid():
             clean = form.clean()
             bunk.code = clean['code']
-            bunk.save()
+            try:
+                bunk.save()
+            except:
+                messages.warning(request, "An error occured while saving. Make sure code is unique")
+                return HttpResponseRedirect(reverse('list_bunks'))
+            messages.success(request, "Success: A bunk bed has been edited")
             return HttpResponseRedirect(reverse('list_bunks'))
         else:
+            messages.warning(request, "An error in the form fields")
             return render(request, 'bunkform.html', {'form': form})
     else:
         form = BunkForm(initial={'code': bunk.code})
@@ -128,6 +153,7 @@ def edit_bunk(request, id):
 def delete_bunk(request, id):
     bunk = Bunk.objects.get(id=id)
     bunk.delete()
+    messages.success(request, "Success: A bunk bed has been removed")
     return HttpResponseRedirect(reverse('list_bunks'))
 
 # Manager
@@ -149,13 +175,18 @@ def add_manager(request):
                 email = clean['email'],
                 password = clean['password'],
             )
-            user.save()
-            user.set_password(user.password)
-            user.save()
-            g = Group.objects.get(name='manager')
-            g.user_set.add(user)
+            try:
+                user.save()
+                user.set_password(user.password)
+                user.save()
+                g = Group.objects.get(name='manager')
+                g.user_set.add(user)
+                messages.success(request, "A new manager has been created.")
+            except:
+                messages.warning(request, "An error occured while saving. Make sure username and email address are unique")
             return HttpResponseRedirect(reverse('list_managers'))
         else:
+            messages.warning(request, "Error on form values.")
             return render(request, 'user_form.html', {'form': form} )
     else:
         form = UserForm()
@@ -178,9 +209,14 @@ def edit_manager_profile(request, username):
             user.last_name = clean['last_name']
             user.email = clean['email']
             user.set_password(clean['password'])
-            user.save()
+            try:
+                user.save()
+                messages.success(request, "Success: A manager profile has been edited")
+            except:
+                messages.warning(request, "An error occured while saving.")
             return HttpResponseRedirect(reverse('list_managers'))
         else:
+            messages.warning(request, "An error in the form fields")
             return render(request, 'user_form.html', {'form': form})
     else:
         form = UserForm(initial={
@@ -197,6 +233,7 @@ def edit_manager_profile(request, username):
 def delete_manager(request, username):
     user = User.objects.get(username=username)
     user.delete()
+    messages.success(request, "Success: A manager has been removed")
     return HttpResponseRedirect(reverse('list_managers'))
 
 @login_required
@@ -217,28 +254,33 @@ def add_student(request):
                 email = clean['email'],
                 password = clean['password'],
             )
-            user.save()
-            user.set_password(user.password)
-            user.save()
-            g = Group.objects.get(name='student')
-            g.user_set.add(user)
-            bunk = Bunk.objects.get(code=clean['bunk'])
-            student = Student(
-                user=user,
-                course=clean['course'],
-                contact_no=clean['contact_no'],
-                birth_date=clean['birth_date'],
-                mother_name=clean['mother_name'],
-                mother_contact=clean['mother_contact'],
-                father_name=clean['father_name'],
-                father_contact=clean['father_contact'],
-                guardian_name=clean['guardian_name'],
-                guardian_contact=clean['guardian_contact'],
-                bunk = bunk,
-                )
-            student.save()
+            try:
+                user.save()
+                user.set_password(user.password)
+                user.save()
+                g = Group.objects.get(name='student')
+                g.user_set.add(user)
+                bunk = Bunk.objects.get(code=clean['bunk'])
+                student = Student(
+                    user=user,
+                    course=clean['course'],
+                    contact_no=clean['contact_no'],
+                    birth_date=clean['birth_date'],
+                    mother_name=clean['mother_name'],
+                    mother_contact=clean['mother_contact'],
+                    father_name=clean['father_name'],
+                    father_contact=clean['father_contact'],
+                    guardian_name=clean['guardian_name'],
+                    guardian_contact=clean['guardian_contact'],
+                    bunk = bunk,
+                    )
+                student.save()
+                messages.success(request, "Success: A student profile has been edited")
+            except:
+                messages.warning(request, "An error occured while saving.")
             return render(request, 'index.html')
         else:
+            messages.warning(request, "An error occured while saving.")
             return render(request, 'student_form.html', {'form': form} )
     else:
         form = StudentForm()
@@ -257,27 +299,32 @@ def edit_student_profile(request, username):
     if request.method == "POST":
         form = StudentForm(request.POST)
         if form.is_valid():
-            clean = form.clean()
-            bunk = Bunk.objects.get(code=clean['bunk'])
-            user.username = clean['username'],
-            user.first_name = clean['first_name'],
-            user.last_name = clean['last_name'],
-            user.email = clean['email'],
-            user.set_password(clean['password'])
-            user.save()
-            profile.course=clean['course'],
-            profile.contact_no=clean['contact_no'],
-            profile.birth_date=clean['birth_date'],
-            profile.mother_name=clean['mother_name'],
-            profile.mother_contact=clean['mother_contact'],
-            profile.father_name=clean['father_name'],
-            profile.father_contact=clean['father_contact'],
-            profile.guardian_name=clean['guardian_name'],
-            profile.guardian_contact=clean['guardian_contact'],
-            profile.bunk = bunk,
-            profile.save()
+            try:
+                clean = form.clean()
+                bunk = Bunk.objects.get(code=clean['bunk'])
+                user.username = clean['username'],
+                user.first_name = clean['first_name'],
+                user.last_name = clean['last_name'],
+                user.email = clean['email'],
+                user.set_password(clean['password'])
+                user.save()
+                profile.course=clean['course'],
+                profile.contact_no=clean['contact_no'],
+                profile.birth_date=clean['birth_date'],
+                profile.mother_name=clean['mother_name'],
+                profile.mother_contact=clean['mother_contact'],
+                profile.father_name=clean['father_name'],
+                profile.father_contact=clean['father_contact'],
+                profile.guardian_name=clean['guardian_name'],
+                profile.guardian_contact=clean['guardian_contact'],
+                profile.bunk = bunk,
+                profile.save()
+                messages.success(request, "Success: A student profile has been edited")
+            except:
+                messages.warning(request, "An error occured while saving.")
             return HttpResponseRedirect(reverse('list_students'))
         else:
+            messages.warning(request, "An error occured while saving.")
             return render(request, 'student_form.html', {'form': form} )
     else:
         form = StudentForm(initial = {
@@ -306,6 +353,7 @@ def delete_student(request, username):
     profile = Student.objects.get(user=user)
     profile.delete()
     user.delete()
+    messages.success(request, "Success: A student has been removed")
     return HttpResponseRedirect(reverse('list_students'))
 
 @login_required
@@ -345,7 +393,8 @@ def my_in(request, username):
             datetime = datetime.datetime.now()
         )
         log.save()
-        return render(request, 'index.html')
+        messages.success(request, "Success: You Signed In")
+        return HttpResponseRedirect(reverse('index'))
     return render(request, 'my_in.html')
 
 @login_required
@@ -360,5 +409,6 @@ def my_out(request, username):
             datetime = datetime.datetime.now()
         )
         log.save()
-        return render(request, 'index.html')
+        messages.success(request, "Success: You Signed Out")
+        return HttpResponseRedirect(reverse('index'))
     return render(request, 'my_out.html')

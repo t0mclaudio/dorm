@@ -6,9 +6,13 @@
     </head>
     <body>
 <div class="container">
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
     <h1>Welcome to Dormitory app, {{request.user.username | title }}</h1>
     <h2>
         You have
+        {% if is_superuser %}a <u>super user</u>{% endif%}
         {% if is_manager %}a <u>manager</u>{% endif%}
         {% if is_student %}a <u>student</u>{% endif %}
         {% if is_admin %}an <u>admin</u>{% endif %} account
