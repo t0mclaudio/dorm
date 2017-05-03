@@ -1,33 +1,25 @@
-<html>
-    <head>
-        <title>Dormitory App</title>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endfor %}     
-            <h1>List of students</h1>
-            <table class="table table-bordered">
-                <tr>
-                    <th>Name</th>
-                    <th>Email Address</th>
-                    <th>Bunk assigment</th>
-                    <th></th>
-                </tr>
-                {% for student in students %}
-                    <tr>
-                        <td>{{student.user.first_name}} {{student.user.last_name}}</td>
-                        <td>{{student.user.email}}</td>
-                        <td>{{student.bunk.code}}</td>
-                        <td><a href="{% url 'student_profile' student.user.username %}">View profile</a></td>
-                    </tr>
-                {% endfor %}
-            </table>
-            <a class="btn btn-info" role="button" href="{% url 'add_student' %}">Add student</a>
-            <a class="btn btn-info" role="button" href="{% url 'index' %}">Back to main page</a>
-        </div>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="row" style="margin-left:50px; max-width:600px">
+    <h1>List of students</h1>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Email Address</th>
+            <th>Bunk assigment</th>
+            <th></th>
+        </tr>
+        {% for student in students %}
+            <tr>
+                <td>{{student.user.first_name}} {{student.user.last_name}}</td>
+                <td>{{student.user.email}}</td>
+                <td>{{student.bunk.code}}</td>
+                <td><a href="{% url 'student_profile' student.user.username %}">View profile</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div class="pull-right" style="margin-bottom: 10px">
+        <a class="btn btn-warning btn-lg" role="button" href="{% url 'add_student' %}">Add student</a>
+        <a class="btn btn-warning btn-lg" role="button" href="{% url 'index' %}">Back to main page</a>
+    </div>
+{% endblock %}
