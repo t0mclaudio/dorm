@@ -5,10 +5,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 class StudentForm(forms.Form):
     username = forms.CharField(max_length=32, required=True)
-    first_name = forms.CharField(max_length=32, required=True)
-    last_name = forms.CharField(max_length=32, required=True)
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
+    first_name = forms.CharField(max_length=32, required=True)
+    last_name = forms.CharField(max_length=32, required=True)
     course = forms.CharField(max_length=32, required=True)
     contact_no = forms.CharField(max_length=32, required=True)
     birth_date = forms.DateField()
@@ -22,10 +22,10 @@ class StudentForm(forms.Form):
 
 class UserForm(forms.Form):
     username = forms.CharField(max_length=32, required=True)
-    first_name = forms.CharField(max_length=32, required=True)
-    last_name = forms.CharField(max_length=32, required=True)
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput, required=True)
+    first_name = forms.CharField(max_length=32, required=True)
+    last_name = forms.CharField(max_length=32, required=True)
 
 class BunkForm(forms.Form):
     code = forms.CharField(max_length=12, required=True)

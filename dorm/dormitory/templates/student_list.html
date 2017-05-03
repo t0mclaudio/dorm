@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row" style="margin-left:50px; max-width:600px">
-    <h1>List of students</h1>
+    <h1 id="app-title">List of students</h1>
     <table class="table table-bordered table-striped">
         <tr>
             <th>Name</th>
@@ -19,7 +19,8 @@
         {% endfor %}
     </table>
     <div class="pull-right" style="margin-bottom: 10px">
-        <a class="btn btn-warning btn-lg" role="button" href="{% url 'add_student' %}">Add student</a>
-        <a class="btn btn-warning btn-lg" role="button" href="{% url 'index' %}">Back to main page</a>
+        <a class="btn btn-warning" role="button" href="{% url 'add_student' %}">Add student</a>
+        <a class="btn btn-warning" role="button" href="{% url 'index' %}">Back to main page</a>
     </div>
+</div>    
 {% endblock %}

@@ -1,22 +1,12 @@
-<html>
-    <head>
-        <title>Dormitory App</title>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Student Login</h1>
-            <h2>Date and Time now: <span id="datetime"></span></h2>
-            <form method="post">
-                {% csrf_token %}
-                <input type="submit" value="Log In">
-            </form>
-            <a class="btn btn-info" role="button" href="{{request.META.HTTP_REFERER}}">Back</a>
-        </div>
-        <script>
-            var d = new Date("October 13, 2014 11:13:00");
-            document.getElementById("datetime").innerHTML = d;
-        </script>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="row" style="margin-left:50px; max-width:600px">
+    <h1 id="app-title">Login to Dormitory</h1>
+    <h2 id="app-title">Date and time now: <span id="datetime"></span></h2>
+    <form method="post">
+        {% csrf_token %}
+        <a class="btn btn-warning btn-lg" role="button" href="{{request.META.HTTP_REFERER}}">Back</a>
+        <input class="btn btn-primary btn-lg" type="submit" value="Log In">
+    </form>
+</div>
+{% endblock %}

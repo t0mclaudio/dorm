@@ -1,18 +1,16 @@
-<html>
-    <head>
-        <title>Dormitory App</title>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Student Form</h1>
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Save" />
-            </form>
-            <a class="btn btn-info" role="button" href="{% url 'list_students' %}">Cancel</a>
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+{% bootstrap_messages %}
+<div class="row" style="margin-left:50px; max-width:400px">
+    <h1 id="app-title">Student Form</h1>
+    <form action="" method="post" autocomplete="off">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="pull-right" style="margin-bottom: 10px">
+            <a class="btn btn-warning" role="button" href="{% url 'list_students' %}">Cancel</a>
+            <input class="btn btn-primary" type="submit" value="Save" />
         </div>
-    </body>
-</html>
+    </form>
+</div>
+{% endblock %}

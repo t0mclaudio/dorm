@@ -8,10 +8,10 @@
                 background-color: rgba(52, 73, 94,1.0);
                 color: rgba(236, 240, 241,1.0);
                 text-align: center;
-                font-size: 24px;
+                font-size: 18px;
             }
             .app-glyp {
-                font-size: 64px;
+                font-size: 48px;
                 margin-top: 20px
             }
             #app-title {
@@ -27,7 +27,9 @@
         <div class="container-fluid">
             <div class="row" style="background-color: #c0392b; min-height:80px">
                 <div class="col-xs-12" style='margin-left: 50px'>
-                    <h1 style="color: #f1c40f; margin: 10px 0px 0px 0px"><span class="glyphicon glyphicon-home"></span> Dormitory Logging System</h1>
+                    <a href="{% url 'index' %}">
+                        <h1 style="color: #f1c40f; margin: 10px 0px 0px 0px"><span class="glyphicon glyphicon-home"></span> Dormitory Logging System</h1>    
+                    </a>
                     <small style="color: #ecf0f1; margin: 0px 0px 0px 50px" class="lead">
                         {% if request.user.first_name %}
                             Welcome, {{request.user.first_name | title }} {{request.user.last_name | title }}

@@ -1,67 +1,63 @@
-<html>
-    <head>
-        <title>Dormitory App</title>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <h1>student</h1>
-            <table class="table table-bordered">
-                <tr>
-                    <td>Name</td>
-                    <td>{{student.user.first_name}} {{student.user.last_name}}</td>
-                </tr>
-                <tr>
-                    <td>Username</td>
-                    <td>{{student.user.username}}</td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>{{student.user.email}}</td>
-                </tr>
-                <tr>
-                    <td>Course</td>
-                    <td>{{student.course}}</td>
-                </tr>
-                <tr>
-                    <td>Contact No</td>
-                    <td>{{student.contact_no}}</td>
-                </tr>
-                <tr>
-                    <td>Date of birth</td>
-                    <td>{{student.birth_date}}</td>
-                </tr>
-                <tr>
-                    <td>Mother's name</td>
-                    <td>{{student.mother_name}}</td>
-                </tr>
-                <tr>
-                    <td>Mother's contact info</td>
-                    <td>{{student.mother_contact}}</td>
-                </tr>
-                <tr>
-                    <td>Father's name</td>
-                    <td>{{student.father_name}}</td>
-                </tr>
-                <tr>
-                    <td>Father's contact info</td>
-                    <td>{{student.father_contact}}</td>
-                </tr>
-                <tr>
-                    <td>Guardian's name</td>
-                    <td>{{student.guardian_name}}</td>
-                </tr>
-                <tr>
-                    <td>Guardian's contact info</td>
-                    <td>{{student.guardian_contact}}</td>
-                </tr>
-                <tr>
-                    <td>Assigned Bunk Bed</td>
-                    <td>{{student.bunk.code}}</td>
-                </tr>
-            </table>
-            <a class="btn btn-info" role="button" href="{{request.META.HTTP_REFERER}}">Back</a>
-        </div>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="row" style="margin-left:50px; max-width:500px">
+    <h1 id="app-title">My profile</h1>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <td>Name</td>
+            <td>{{student.user.first_name}} {{student.user.last_name}}</td>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td>{{student.user.username}}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{student.user.email}}</td>
+        </tr>
+        <tr>
+            <td>Course</td>
+            <td>{{student.course}}</td>
+        </tr>
+        <tr>
+            <td>Contact No</td>
+            <td>{{student.contact_no}}</td>
+        </tr>
+        <tr>
+            <td>Date of birth</td>
+            <td>{{student.birth_date}}</td>
+        </tr>
+        <tr>
+            <td>Mother's name</td>
+            <td>{{student.mother_name}}</td>
+        </tr>
+        <tr>
+            <td>Mother's contact info</td>
+            <td>{{student.mother_contact}}</td>
+        </tr>
+        <tr>
+            <td>Father's name</td>
+            <td>{{student.father_name}}</td>
+        </tr>
+        <tr>
+            <td>Father's contact info</td>
+            <td>{{student.father_contact}}</td>
+        </tr>
+        <tr>
+            <td>Guardian's name</td>
+            <td>{{student.guardian_name}}</td>
+        </tr>
+        <tr>
+            <td>Guardian's contact info</td>
+            <td>{{student.guardian_contact}}</td>
+        </tr>
+        <tr>
+            <td>Assigned Bunk Bed</td>
+            <td>{{student.bunk.code}}</td>
+        </tr>
+    </table>
+    <div class="pull-right" style="margin-bottom: 10px">
+        <a class="btn btn-warning" role="button" href="{{request.META.HTTP_REFERER}}">Back</a>
+    </div>
+</div>
+{% endblock %}

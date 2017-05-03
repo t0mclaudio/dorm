@@ -1,19 +1,17 @@
-<html>
-    <head>
-        <title>Dormitory App</title>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        <h1>Bunk</h1>
-        <table class="table table-bordered">
-            <tr>
-                <td>Code</td>
-                <td>{{bunk.code}}</td>
-            </tr>
-        </table>
-        <a class="btn btn-info" role="button" href="{% url 'edit_bunk' bunk.id %}">Edit Bunk</a>
-        <a class="btn btn-info" role="button" href="{% url 'delete_bunk' bunk.id %}">Delete</a>
-        <a class="btn btn-info" role="button" href="{{request.META.HTTP_REFERER}}">Back</a>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="row" style="margin-left:50px; max-width:300px">
+    <h1 id="app-title">Bunk</h1>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <td>Code</td>
+            <td>{{bunk.code | title}}</td>
+        </tr>
+    </table>
+    <div class="pull-right" style="margin-bottom: 10px">
+        <a class="btn btn-warning btn-md" role="button" href="{% url 'edit_bunk' bunk.id %}">Edit Bunk</a>
+        <a class="btn btn-warning btn-md" role="button" href="{% url 'delete_bunk' bunk.id %}">Delete</a>
+        <a class="btn btn-warning btn-md" role="button" href="{{request.META.HTTP_REFERER}}">Back</a>
+    </div>
+</div>
+{% endblock %}

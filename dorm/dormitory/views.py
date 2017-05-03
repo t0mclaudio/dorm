@@ -361,7 +361,7 @@ def student_logs(request, username):
     user = User.objects.get(username=username)
     student = Student.objects.get(user=user)
     logs = Log.objects.filter(student=student)
-    return render(request, 'student_logs.html', {'logs': logs})
+    return render(request, 'student_logs.html', {'logs': logs, 'user': user})
 
 @login_required
 def logs(request):
