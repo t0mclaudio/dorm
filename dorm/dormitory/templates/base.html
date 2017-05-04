@@ -2,7 +2,10 @@
     <head>
         <title>{{title}}</title>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
         <style>
             .app-btn {
                 background-color: rgba(52, 73, 94,1.0);
@@ -28,7 +31,7 @@
             <div class="row" style="background-color: #c0392b; min-height:80px">
                 <div class="col-xs-12" style='margin-left: 50px'>
                     <a href="{% url 'index' %}">
-                        <h1 style="color: #f1c40f; margin: 10px 0px 0px 0px"><span class="glyphicon glyphicon-home"></span> Dormitory Logging System</h1>    
+                        <h1 style="color: #f1c40f; margin: 10px 0px 0px 0px"><span class="glyphicon glyphicon-home"></span> Dormitory Logging System</h1>
                     </a>
                     <small style="color: #ecf0f1; margin: 0px 0px 0px 50px" class="lead">
                         {% if request.user.first_name %}
@@ -46,10 +49,5 @@
             </div>
             {% block content %}{% endblock %}
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-        <script>
-            var d = moment().format('LT');
-            document.getElementById("datetime").innerHTML = d;
-        </script>
     </body>
 </html>

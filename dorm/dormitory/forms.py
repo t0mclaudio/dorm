@@ -18,7 +18,7 @@ class StudentForm(forms.Form):
     father_contact = forms.RegexField(label = "Father contact Number", help_text = "Accepted Formats: '+999999999'. Up to 15 digits allowed.", regex = r'^\+?1?\d{9,15}$' )
     guardian_name = forms.CharField(label = 'Guardian name', max_length = 120)
     guardian_contact = forms.RegexField(label = "Guardian contact Number", help_text = "Accepted Formats: '+999999999'. Up to 15 digits allowed.", regex = r'^\+?1?\d{9,15}$' )
-    bunk = forms.ModelChoiceField(queryset=Bunk.objects.all())
+    bunk = forms.ChoiceField()
 
 class UserForm(forms.Form):
     username = forms.CharField(max_length=32, required=True)

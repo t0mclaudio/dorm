@@ -102,3 +102,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+DATE_INPUT_FORMATS = ('%b %d, %Y - %a', '%d-%m-%Y','%Y-%m-%d', '%m/%d/%Y')
+
+USE_TZ = True
+TIME_ZONE = 'Asia/Manila'

@@ -2,7 +2,7 @@
 {% block content %}
 <div class="row" style="margin-left:50px; max-width:600px">
     <h1 id="app-title">Logout</h1>
-    <h2 id="app-title">Date and time now: <span id="datetime"></span></h2>
+    <h2 id="app-title">Date and time now: <span id="datetimenow"></span></h2>
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -13,4 +13,9 @@
         <input class="btn btn-primary btn-lg" type="submit" value="Log out" />
     </form>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script>
+    var d = moment().format('LT');
+    document.getElementById("datetimenow").innerHTML = d;
+</script>
 {% endblock %}

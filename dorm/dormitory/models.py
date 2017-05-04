@@ -1,10 +1,30 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class BunkManager(models.Manager):
+    def get_available(self):
+        used = Student.objects.values_list('bunk', flat=True)
+        bunks = self.all()
+        obj = []
+        for bunk in bunks:
+            if bunk.id not in used:
+                obj.append((bunk.id, bunk.code))
+        return obj
+
+    def get_available2(self, using):
+        used = Student.objects.values_list('bunk', flat=True)
+        bunks = self.all()
+        obj = []
+        for bunk in bunks:
+            if bunk.id not in used or bunk.id == using:
+                obj.append((bunk.id, bunk.code))     
+        return obj
+
 # Create your models here.
 class Bunk(models.Model):
     code = models.CharField(max_length=12, unique=True)
 
+    objects = BunkManager()
     def __str__(self):
         return self.code
 

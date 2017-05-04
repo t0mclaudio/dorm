@@ -245,6 +245,7 @@ def list_students(request):
 def add_student(request):
     if request.method == "POST":
         form = StudentForm(request.POST)
+        form.fields['bunk'].choices=Bunk.objects.get_available()
         if form.is_valid():
             clean = form.clean()
             user = User(
@@ -260,7 +261,7 @@ def add_student(request):
                 user.save()
                 g = Group.objects.get(name='student')
                 g.user_set.add(user)
-                bunk = Bunk.objects.get(code=clean['bunk'])
+                bunk = Bunk.objects.get(id=clean['bunk'])
                 student = Student(
                     user=user,
                     course=clean['course'],
@@ -278,12 +279,13 @@ def add_student(request):
                 messages.success(request, "Success: A student profile has been edited")
             except:
                 messages.warning(request, "An error occured while saving.")
-            return render(request, 'index.html')
+            return HttpResponseRedirect(reverse('list_students'))
         else:
             messages.warning(request, "An error occured while saving.")
             return render(request, 'student_form.html', {'form': form} )
     else:
         form = StudentForm()
+        form.fields['bunk'].choices=Bunk.objects.get_available()
     return render(request, 'student_form.html', {'form': form} )
 
 @login_required
@@ -298,26 +300,27 @@ def edit_student_profile(request, username):
     profile = Student.objects.get(user=user)
     if request.method == "POST":
         form = StudentForm(request.POST)
+        form.fields['bunk'].choices=Bunk.objects.get_available2(profile.bunk.id)
         if form.is_valid():
             try:
                 clean = form.clean()
-                bunk = Bunk.objects.get(code=clean['bunk'])
-                user.username = clean['username'],
-                user.first_name = clean['first_name'],
-                user.last_name = clean['last_name'],
-                user.email = clean['email'],
+                bunk = Bunk.objects.get(id=clean['bunk'])
+                user.username = clean['username']
+                user.first_name = clean['first_name']
+                user.last_name = clean['last_name']
+                user.email = clean['email']
                 user.set_password(clean['password'])
                 user.save()
-                profile.course=clean['course'],
-                profile.contact_no=clean['contact_no'],
-                profile.birth_date=clean['birth_date'],
-                profile.mother_name=clean['mother_name'],
-                profile.mother_contact=clean['mother_contact'],
-                profile.father_name=clean['father_name'],
-                profile.father_contact=clean['father_contact'],
-                profile.guardian_name=clean['guardian_name'],
-                profile.guardian_contact=clean['guardian_contact'],
-                profile.bunk = bunk,
+                profile.course=clean['course']
+                profile.contact_no=clean['contact_no']
+                profile.birth_date=clean['birth_date']
+                profile.mother_name=clean['mother_name']
+                profile.mother_contact=clean['mother_contact']
+                profile.father_name=clean['father_name']
+                profile.father_contact=clean['father_contact']
+                profile.guardian_name=clean['guardian_name']
+                profile.guardian_contact=clean['guardian_contact']
+                profile.bunk = bunk
                 profile.save()
                 messages.success(request, "Success: A student profile has been edited")
             except:
@@ -345,6 +348,7 @@ def edit_student_profile(request, username):
             'bunk': profile.bunk
         })
         form.fields['username'].widget.attrs['readonly'] = True
+        form.fields['bunk'].choices=Bunk.objects.get_available2(profile.bunk.id)
     return render(request, 'student_form.html', {'form': form} )
 
 @login_required
@@ -365,14 +369,14 @@ def student_logs(request, username):
 
 @login_required
 def logs(request):
-    logs = Log.objects.all()
+    logs = Log.objects.order_by('-datetime')
     return render(request, 'logs.html', {'logs':logs})
 
 @login_required
 def my_logs(request, username):
     user = User.objects.get(username=username)
     student = Student.objects.get(user=user)
-    logs = Log.objects.filter(student=student)
+    logs = Log.objects.filter(student=student).order_by('-datetime')
     return render(request, 'student_logs.html', {'logs': logs})
 
 @login_required
